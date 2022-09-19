@@ -30,3 +30,10 @@ io.on('connection', (socket) => {
     console.log('message: ' + msg);
   });
 });
+
+// Send message to everyone (Broadcast)
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
+});
