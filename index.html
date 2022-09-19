@@ -21,8 +21,28 @@
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
 
+    <!-- 
+      To load the socket.io-client, 
+      which exposes an io global (and the endpoint GET /socket.io/socket.io.js),
+      and then connect. 
+    -->
     <script src="/socket.io/socket.io.js"></script>
-    <script> var socket = io(); </script>
+
+    <!-- when the user types in a message, the server gets it as a "chat message event". -->
+    <script>
+      var socket = io();
+    
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+    
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+          socket.emit('chat message', input.value);
+          input.value = '';
+        }
+      });
+    </script>
     
   </body>
 </html>
